@@ -1,0 +1,104 @@
+<!-- Big screen nav  -->
+<nav class="navbar">
+    <div class="navbar-left">
+        <a href="/dashboard" class="logo">
+            <img src="/images/logo.png" alt="logo">
+        </a>
+
+        <div class="nav-items">
+            <a href="/dashboard" class="nav-item">Dashboard</a>
+            <a href="/how-it-works" class="nav-item">How it Work</a>
+            <a href="/leaderboard" class="nav-item">Leaderboard</a>
+            <a href="/profile" class="nav-item">Profile</a>
+        </div>
+    </div>
+    <div class="navbar-right">
+        <!-- <button class="submite">Solana Wallet</button> -->
+        <button class="submite">
+            <% if (typeof user !=="undefined" && user.walletAddress) { %>
+                <%= user.walletAddress.slice(0, 15) + "..." %>
+                    <% } else { %>
+                        Solana Wallet
+                        <% } %>
+        </button>
+
+        <div class="profile-menu">
+            <div class="profile-avatar" id="profileToggle">
+                <img src="<%= user.profileImage.replace('_normal', '_400x400') %>" alt="Profile">
+            </div>
+
+            <div class="dropdown" id="profileDropdown">
+                <a href="/profile">Profile</a>
+                <a href="/auth/logout">Log out</a>
+            </div>
+        </div>
+
+    </div>
+</nav>
+
+
+
+
+
+
+<!-- Small screen nav -->
+ <!-- NAV FOR SMALL SCREEN  -->
+<div class="small-screen-nav">
+  <div class="link-container">
+    <a href="/dashboard" class="nav-link">
+      <i class="ri-dashboard-line"></i>
+      <p>DASHBOARD</p>
+    </a>
+
+    <a href="/leaderboard" class="nav-link">
+      <i class="ri-trophy-line"></i>
+      <p>USER RANKS</p>
+    </a>
+
+    <a href="/how-it-works" class="nav-link">
+      <i class="ri-puzzle-2-line"></i>
+      <p>BLUEPRINT</p>
+    </a>
+
+    <a href="/profile" class="nav-link">
+      <i class="ri-user-line"></i>
+      <p>MY PROFILE</p>
+    </a>
+  </div>
+</div>
+
+<!-- // Get all the menu items ADDING ACTIVE FOR SMALL SCREEN  -->
+<script>
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function updateActiveLink() {
+        const currentPath = window.location.pathname;
+
+        navLinks.forEach(link => {
+            const linkURL = new URL(link.href);
+            const linkPath = linkURL.pathname;
+
+            // Only activate internal links (same origin)
+            if (linkURL.origin === window.location.origin && linkPath === currentPath) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
+    }
+
+    updateActiveLink();
+
+    // Optional: click effect for instant active feedback (before page load)
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const linkURL = new URL(link.href);
+
+            if (linkURL.origin === window.location.origin) {
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            }
+            // Let normal navigation continue
+        });
+    });
+</script>

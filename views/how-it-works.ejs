@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>how it works</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/how-it-works.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+    <section class="moonchad">
+
+        <!-- Section 1 (NAV BAR) -->
+        <%- include('partials/nav') %>
+
+
+            <div class="container">
+                <!-- ABOUT -->
+                <div class="card">
+                    <h2>About</h2>
+                    <p>MOONCHAD introduces a Tweet Submission & Reward System that incentivizes users to promote our
+                        project on X (Twitter). The goal is simple: reward community members based on the real reach of
+                        their tweets.
+                    </p> <br>
+                    <ul>
+                        <li>Users submit their tweets mentioning @MoonChad and $MOONCHAD.</li>
+                        <li>Admins verify the tweet for compliance and views.</li>
+                        <li>Rewards are distributed based on engagement performance.</li>
+                    </ul>
+                </div>
+
+
+                <!-- HOW IT WORKS -->
+                <div class="card">
+                    <h2>How It Works</h2>
+                    <ul>
+                        <li><strong>Step 1:</strong> User signs up using Twitter authentication.</li>
+                        <li><strong>Step 2:</strong> Post a tweet mentioning @MoonChad or $MOONCHAD.</li>
+                        <li><strong>Step 3:</strong> Submit the tweet link via our website.</li>
+                        <li><strong>Step 4:</strong> We automatically reviews the submission.</li>
+                        <li><strong>Step 5:</strong> System calculates rewards based on engagements.</li>
+                    </ul> <br>
+                    <p><em>Example: A tweet with 100 likes earns 10k MOONCHAD tokens.</em></p>
+                </div>
+
+
+
+                <!-- REWARD RULES -->
+                <div class="card">
+                    <h2>Reward Rules</h2>
+                    <p>Rewards are automatically calculated according to <strong>tweet likes</strong>:</p>
+                    <ul>
+                        <li>1 like → 100 tokens (≈ $0.10)</li>
+                        <li>10 likes → 1,000 tokens (≈ $1.00)</li>
+                        <li>20 likes → 2,000 tokens (≈ $2.00)</li>
+                        <li>More likes = more tokens earned 🚀</li>
+                    </ul>
+                </div>
+
+
+
+                <!-- PREVENTING ABUSE -->
+                <div class="card">
+                    <h2>Preventing Abuse</h2>
+                    <ul>
+                        <li>Each tweet can only be processed once.</li>
+                        <li>We automatically review all tweets for authenticity and positivity before approval.</li>
+                        <li>Duplicate, fake, or irrelevant tweets are rejected immediately.</li>
+                        <li>Accounts using spam tactics or bots will be flagged and banned from the system.</li>
+                        <li>Rewards are only given for organic engagement (real views and interactions).</li>
+                    </ul>
+                </div>
+
+            </div>
+
+
+            <!-- Footer  -->
+            <div class="footer">
+                <p>Follow us on</p>
+                <a href="#">X - Twitter</a>
+                <a href="https://t.me/moonchadtoken">Telegram</a>
+            </div>
+
+    </section>
+
+    <script src="/js/dashboard.js"></script>
+    <!-- <script src="/js/profile.js"></script> -->
+</body>
+
+</html>

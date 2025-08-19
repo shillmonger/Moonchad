@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>profile</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+    <section class="moonchad">
+
+
+        <!-- Section 1 (NAV BAR) -->
+        <%- include('partials/nav') %>
+
+
+
+
+
+
+            <!-- Section 2  -->
+            <div class="main-dashboard">
+
+                <!-- Profile Card -->
+                <div class="first-card">
+                    <div class="card profile-card">
+                        <div class="profile-info">
+                            <img src="<%= user.profileImage.replace('_normal', '_400x400') %>" alt="User Avatar" class="avatar">
+                            <div class="profile-text">
+                                <p class="handle">@<%= user.handle %>
+                                </p>
+                                <h2 class="username">
+                                    <%= user.username %>
+                                </h2>
+                                <div class="links">
+                                    <a href="https://x.com/<%= user.handle %>" target="_blank"
+                                        class="twitter">Twitter</a>
+                                    <a class="link-btn">Solana</a>
+                                </div>
+                            </div>
+
+                            <button class="edit-btn">Edit</button>
+                        </div>
+                        <div class="profile-actions">
+                            <button class="action-btn active">
+                                <%= user.tokenWallet %>
+                            </button>
+                            <% let rewardProgress=Math.min((user.usdWallet / 50) * 100, 100).toFixed(0); %>
+                                <button class="action-btn">
+                                    <%= rewardProgress %>%
+                                </button>
+
+                                <button class="action-btn">$<%= user.usdWallet.toFixed(2) %></button>
+                        </div>
+
+                    </div>
+
+                    <!-- Invite Friends Card -->
+                    <div class="card invite-card">
+                        <div class="invite-text">
+                            <h3>INVITE FRIENDS</h3>
+                            <p class="desc">
+                                Invite your friends, earn <strong>2000</strong> Mchad Token worth <strong>$2</strong>
+                                per user
+                            </p>
+                        </div>
+
+                        <div class="invite-btn">
+                            <div class="invite-values">
+                                <!-- Total invites -->
+                                <p class="earnings refered">
+                                    <%= user.referrals.length %> <span>users</span>
+                                </p>
+                                <!-- Rewards earned from referrals -->
+                                <p class="earnings">
+                                    <%= user.referralEarnings %> mchad
+                                </p>
+                            </div>
+                            <div class="invite-actions">
+                                <!-- Take screenshot  -->
+                                <button class="details-btn download" id="downloadBtn">
+                                    Screenshot Profile
+                                </button>
+
+                                <!-- Hidden referral input -->
+                                <input type="text" value="http://localhost:3000/auth/signup?ref=<%= user.handle %>"
+                                    readonly id="ref-link" style="display:none">
+                                <button id="copy-ref-link" class="share-btn">Copy <i
+                                        class="ri-file-copy-line"></i></button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!--Clculator Card -->
+                <div class="second-card">
+
+                    <div class="calculate">
+                        <div class="card calculator-container">
+                            <h3>Mchad Calculator</h3>
+                            <p class="desc">Convert between Tokens, USD, and Likes</p>
+
+                            <div class="input-header">
+                                <div class="input-label">Value</div>
+                                <button class="max-btn" onclick="setMaxBalance()">MAX</button>
+                            </div>
+
+                            <div class="input-section">
+                                <div class="input-container">
+                                    <input type="number" class="input-field" id="inputAmount" placeholder="0.00"
+                                        oninput="calculateConversions()">
+
+                                    <div class="toggle-group">
+                                        <button class="toggle-btn active" data-type="tokens"
+                                            onclick="setInputType('tokens')">Tokens</button>
+                                        <button class="toggle-btn" data-type="usd"
+                                            onclick="setInputType('usd')">USD</button>
+                                        <button class="toggle-btn" data-type="likes"
+                                            onclick="setInputType('likes')">Likes</button>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="swap-arrow">
+                                <div class="arrow-btn">
+                                    <svg class="arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                                    </svg>
+                                </div>
+                            </div>
+
+                            <div class="output-section">
+                                <div class="output-label">You Get</div>
+                                <div class="conversion-grid">
+                                    <div class="conversion-item">
+                                        <div class="conversion-label">Likes Equivalent</div>
+                                        <div class="conversion-value" id="outputLikes">0</div>
+                                    </div>
+                                    <div class="conversion-item">
+                                        <div class="conversion-label">MoonChad Tokens</div>
+                                        <div class="conversion-value" id="outputTokens">0</div>
+                                    </div>
+                                    <div class="conversion-item">
+                                        <div class="conversion-label">USD Value</div>
+                                        <div class="conversion-value" id="outputUSD">$0.00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Convertion rate -->
+                        <div class="rate">
+                            <div class="card rates-info">
+                                <div class="title">Mchad Rates</div>
+                                <div class="rate-item">100 Token = $0.10</div>
+                                <div class="rate-item">100 Token = 1 Like</div>
+                                <div class="rate-item">100 Token = $0.10 = 1 Like</div>
+                            </div>
+                            <div class="card rates-info">
+                                <div class="title">Like Rates</div>
+                                <div class="rate-item">1 Like = $0.10</div>
+                                <div class="rate-item">1 Like = 100 Tokens</div>
+                                <div class="rate-item">1 Likes = 100 Tokens = $0.10</div>
+                            </div>
+                            <div class="card rates-info">
+                                <div class="title">USD Rates</div>
+                                <div class="rate-item">$0.10 = 1 Like</div>
+                                <div class="rate-item">$0.10 = 100 Tokens</div>
+                                <div class="rate-item">$1.00 = 1k Tokens = 10 like</div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Claim and submit wallet -->
+                    <div class="claim-submit">
+                        <!-- claim section  -->
+                        <div class="claim">
+                            <div class="card claim-card">
+                                <h3>Claim Mchad token</h3>
+                                <p class="desc">Points reward users who contribute to the launchpad's success</p>
+                                <!-- Input + Claim button -->
+                                <div class="input-group">
+                                    <input type="number" id="claimAmount" class="input-field"
+                                        placeholder="Enter amount to claim">
+                                    <button class="claim-btn">Claim to Wallet</button>
+                                </div>
+                            </div>
+
+                            <div class="card submit-card">
+                                <h3>Submit wallet</h3>
+                                <p class="desc">Enter your wallet address to receive tokens</p>
+                                <!-- Input + Submit button -->
+                                <div class="input-group">
+                                    <input type="text" id="walletAddress" class="input-field"
+                                        placeholder="Enter Solana wallet address">
+                                    <button class="submit-btn" onclick="submitWallet()">Submit Wallet</button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Send token to friends -->
+                        <div class="shear-token">
+                            <!-- user to credit -->
+                            <div class="card credit">
+                                <div class="rates-title">User to Credit</div>
+
+                                <!-- Loading Spinner -->
+                                <div id="loadingSpinner">
+                                    <div class="spinner"></div>
+                                </div>
+
+                                <!-- Recipient Info -->
+                                <div id="recipientInfo" class="recipientInfo">
+                                    <div class="broke-user">
+                                        <img id="recipientImage" src="" alt="profile">
+                                    </div>
+                                    <div class="broke">
+                                        <p>
+                                            <strong>wallet balance</strong> 
+                                            <strong id="recipientWallet"></strong>
+                                        </p>
+                                        <p>
+                                            <strong id="recipientName"></strong>
+                                            <strong id="recipientHandleText"></strong>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- share token -->
+                            <div class="card shear">
+                                <div class="rates-title">Share Token</div>
+
+                                <div class="shear-hold">
+                                    <input type="text" id="recipientHandle" class="input-fields"
+                                        placeholder="Enter receiver @handle">
+                                    <button id="searchBtn" class="claim-btn">Search user</button>
+                                    <input type="number" id="shareAmount" class="input-fields"
+                                        placeholder="Enter token amount to send">
+                                    <button id="shareBtn" class="claim-btn">Send Token</button>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+    </section>
+
+
+
+
+
+
+
+
+
+    <!-- Take screenshot  -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        document.getElementById("downloadBtn").addEventListener("click", () => {
+            html2canvas(document.body, { useCORS: true, scrollX: 0, scrollY: -window.scrollY })
+                .then(canvas => {
+                    let link = document.createElement("a");
+                    link.download = "dashboard.png";
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                });
+        });
+    </script>
+
+
+
+    <!-- Submission of solana wallet -->
+    <script>
+        async function submitWallet() {
+            const wallet = document.getElementById('walletAddress').value;
+
+            const res = await fetch('/wallet/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ walletAddress: wallet })
+            });
+
+            const data = await res.json();
+
+            if (data.success) {
+                Toastify({
+                    text: "Wallet saved Successfully",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#4CAF50",
+                }).showToast();
+            } else {
+                Toastify({
+                    text: "" + data.error,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "#f44336",
+                }).showToast();
+            }
+        }
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        document.getElementById('copy-ref-link').addEventListener('click', () => {
+            const refInput = document.getElementById('ref-link');
+            refInput.style.display = 'block'; // temporarily show to copy
+            refInput.select();
+            refInput.setSelectionRange(0, 99999); // for mobile
+
+            try {
+                document.execCommand('copy');
+                Toastify({
+                    text: "Referral link copied!",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    backgroundColor: "green"
+                }).showToast();
+            } catch (err) {
+                console.error('Copy failed', err);
+            }
+
+            refInput.style.display = 'none'; // hide again
+        });
+    </script>
+
+    <!-- FOR CLAIMING FORM  -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const claimBtn = document.querySelector(".claim-btn");
+            const claimInput = document.querySelector("#claimAmount");
+
+            claimBtn.addEventListener("click", async () => {
+                const amount = parseInt(claimInput.value, 10);
+
+                // Reset border
+                claimInput.style.border = "";
+
+                // Validate input
+                if (!amount || amount < 50000) {
+                    claimInput.style.border = "2px solid red";
+                    Toastify({
+                        text: "Minimum claim is 50,000 tokens",
+                        backgroundColor: "red",
+                        duration: 3000
+                    }).showToast();
+                    return;
+                }
+
+                try {
+                    const res = await fetch("/claim", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ amount })
+                    });
+
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        Toastify({
+                            text: data.message,
+                            backgroundColor: "red",
+                            duration: 3000
+                        }).showToast();
+                    } else {
+                        claimInput.value = "";
+                        Toastify({
+                            text: "" + data.message,
+                            backgroundColor: "green",
+                            duration: 3000
+                        }).showToast();
+                    }
+                } catch (err) {
+                    console.error(err);
+                    Toastify({
+                        text: "Server error, try again later",
+                        backgroundColor: "red",
+                        duration: 3000
+                    }).showToast();
+                }
+            });
+        });
+    </script>
+
+
+    <!-- FOR SHEARING TOKEN BETWEEN USER  -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const recipientHandleInput = document.querySelector("#recipientHandle");
+            const recipientInfo = document.querySelector("#recipientInfo");
+            const recipientName = document.querySelector("#recipientName");
+            const recipientHandleText = document.querySelector("#recipientHandleText");
+            const recipientImage = document.querySelector("#recipientImage");
+            const recipientWallet = document.querySelector("#recipientWallet");
+
+            const searchBtn = document.querySelector("#searchBtn");
+            const shareBtn = document.querySelector("#shareBtn");
+            const shareAmount = document.querySelector("#shareAmount");
+
+            let selectedHandle = null;
+
+            // 🔍 reusable function to fetch user
+            async function lookupUser() {
+                const handle = recipientHandleInput.value.trim().replace(/^@/, "");
+                if (!handle) return;
+
+                document.querySelector("#loadingSpinner").style.display = "block";
+                recipientInfo.style.display = "none";
+
+                try {
+                    const res = await fetch(`/transfer/find-user/${handle}`);
+                    const data = await res.json();
+
+                    document.querySelector("#loadingSpinner").style.display = "none";
+
+                    if (!data.success) {
+                        Toastify({ text: data.message, backgroundColor: "red", duration: 3000 }).showToast();
+                        selectedHandle = null;
+                        return;
+                    }
+
+                    recipientInfo.style.display = "block";
+                    recipientName.textContent = data.user.username;
+                    recipientHandleText.textContent = `@${data.user.handle}`;
+                    recipientWallet.textContent = data.user.tokenWallet.toLocaleString();
+
+                    // 🔥 Force bright 400x400 image instead of dull _normal
+                    recipientImage.src = data.user.profileImage
+                        ? data.user.profileImage.replace("_normal", "_400x400")
+                        : "https://via.placeholder.com/40";
+
+                    selectedHandle = data.user.handle;
+
+                } catch (err) {
+                    document.querySelector("#loadingSpinner").style.display = "none";
+                    console.error(err);
+                    Toastify({ text: "Error fetching user", backgroundColor: "red", duration: 3000 }).showToast();
+                }
+            }
+
+            // 🔄 Bind search to both Enter + button click
+            recipientHandleInput.addEventListener("blur", lookupUser);
+            searchBtn.addEventListener("click", lookupUser);
+
+            // 🔄 Transfer tokens
+            shareBtn.addEventListener("click", async () => {
+                if (!selectedHandle) {
+                    Toastify({
+                        text: "Please search for a recipient first",
+                        backgroundColor: "red",
+                        duration: 3000
+                    }).showToast();
+                    return;
+                }
+
+                const amount = parseInt(shareAmount.value, 10);
+                if (!amount || amount <= 0) {
+                    Toastify({
+                        text: "Enter a valid token amount",
+                        backgroundColor: "red",
+                        duration: 3000
+                    }).showToast();
+                    return;
+                }
+
+                try {
+                    const res = await fetch("/transfer/transfer", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ handle: selectedHandle, amount })
+                    });
+
+                    const data = await res.json();
+
+                    if (!data.success) {
+                        Toastify({ text: data.message, backgroundColor: "red", duration: 3000 }).showToast();
+                    } else {
+                        shareAmount.value = "";
+                        Toastify({ text: data.message, backgroundColor: "green", duration: 3000 }).showToast();
+                    }
+                } catch (err) {
+                    console.error(err);
+                    Toastify({ text: "Server error, try again later", backgroundColor: "red", duration: 3000 }).showToast();
+                }
+            });
+        });
+
+    </script>
+
+
+
+    <script src="/js/dashboard.js"></script>
+    <script src="/js/profile.js"></script>
+</body>
+
+</html>

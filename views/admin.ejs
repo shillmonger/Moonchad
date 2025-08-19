@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard - MoonChad</title>
+  <link rel="stylesheet" href="/styles.css"> <!-- your CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body>
+  <div class="admin-container">
+    <h1>Admin Dashboard</h1>
+
+    <h2>Pending Tweet Submissions</h2>
+    <% if (tweets.length === 0) { %>
+      <p>No pending tweets yet.</p>
+    <% } else { %>
+      <table>
+        <thead>
+          <tr>
+            <th>User Handle</th>
+            <th>Username</th>
+            <th>Tweet Link</th>
+            <th>Submitted On</th>
+            <th>Approve (Likes)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% tweets.forEach(tweet => { %>
+            <tr>
+              <td>@<%= tweet.userHandle %></td>
+              <!-- username comes from populated user -->
+              <td><%= tweet.user ? tweet.user.username : 'N/A' %></td>
+              <td><a href="<%= tweet.tweetLink %>" target="_blank">View Tweet</a></td>
+              <td><%= new Date(tweet.createdAt).toDateString() %></td>
+              <td>
+                <!-- make action consistent with your admin route -->
+                <form action="/admin/tweets/<%= tweet._id %>/approve" method="POST">
+                  <input 
+                    type="number" 
+                    name="likes" 
+                    placeholder="Enter likes" 
+                    min="0" 
+                    required
+                  >
+                  <button type="submit">Approve</button>
+                </form>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    <% } %>
+  </div>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const msg = urlParams.get('msg');
+  const type = urlParams.get('type');
+
+  if (msg) {
+    Toastify({
+      text: msg,
+      duration: 3000,
+      gravity: "top",
+      position: "right",
+      backgroundColor: type === "success" ? "green" : "red",
+    }).showToast();
+
+    // Remove query params from URL after showing toast
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+</script>
+
+</body>
+</html>

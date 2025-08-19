@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>leaderboard</title>
+  <link rel="icon" type="image/png" href="./images/favicon.png">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/leaderboard.css">
+  <link rel="stylesheet" href="/css/responsiveness.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+  <section class="moonchad">
+
+
+    <!-- Section 1 (NAV BAR) -->
+    <%- include('partials/nav') %>
+
+
+
+      <div class="container">
+
+        <div class="contain">
+          <div class="header">
+            <div class="points-count">
+              <strong class="countdown">500K</strong> MCHAD Token to be distributed in
+              <strong id="countdown-days" class="countdown">0</strong> days
+              <strong id="countdown-hours" class="countdown">0</strong> hours
+              <strong id="countdown-mins" class="countdown">0</strong> min
+              <strong id="countdown-secs" class="countdown">0</strong> sec!
+            </div>
+            <div class="subtitle">
+              Rewards shared among top mindshare holders, top volume traders, and leading creators.
+            </div>
+          </div>
+
+          <div class="search">
+            <input type="search" placeholder="Search your X handle" name="q" class="search-input" id="searchInput" />
+          </div>
+        </div>
+
+        <!-- SCROLLABLE LEADERBOARD -->
+        <div class="leaderboard">
+          <div class="leaderboard-inner">
+
+            <!-- Table Header -->
+            <div class="table-header">
+              <div class="header-text">Rank</div>
+              <div class="header-text">User</div>
+              <div class="header-text">Monchad Token</div>
+              <div class="header-text">Reward Token</div>
+              <div class="header-text">USD Wallet</div>
+              <div class="header-text">Referrals</div>
+              <div class="header-text">User Wallet</div>
+            </div>
+
+            <!-- User Rows -->
+            <% users.forEach((user, index)=> { %>
+              <div class="user-row">
+                <!-- Rank -->
+                <div class="rank">
+                  <%= (index + 1).toString().padStart(2, "0" ) %>
+                </div>
+
+                <!-- User Info -->
+                <div class="user-info">
+                  <div class="avatar">
+                    <% if (user.profileImage) { %>
+                      <img src="<%= user.profileImage.replace('_normal', '_200x200') %>" alt="avatar"
+                        class="avatar-img" />
+                      <% } else { %>
+                        <%= user.username.charAt(0).toUpperCase() %>
+                          <% } %>
+                  </div>
+                  <div class="user-details">
+                    <div class="handle">@<%= user.handle %>
+                    </div>
+                    <div class="username">
+                      <%= user.username %>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Monchad Token -->
+                <div class="stat-value">
+                  <%= user.tokenWallet.toLocaleString() %>
+                </div>
+
+                <!-- Reward Token -->
+                <div class="stat-value">
+                  <%= user.rewardWallet.toLocaleString() %>
+                </div>
+
+                <!-- USD Wallet -->
+                <div class="stat-value">$<%= user.usdWallet.toFixed(2) %>
+                </div>
+
+                <!-- Referrals -->
+                <div class="stat-value">
+                  <%= user.referrals ? user.referrals.length : 0 %>
+                </div>
+
+                <!-- User Wallet -->
+                <div class="stat-value">
+                  <% if (user.walletAddress) { %>
+                    <span>
+                      <%= user.walletAddress.slice(0,6) %>...<%= user.walletAddress.slice(-4) %>
+                    </span>
+                    <% } else { %>
+                      <span class="text-gray">N/A</span>
+                      <% } %>
+                </div>
+              </div>
+              <% }) %>
+
+          </div>
+        </div>
+
+
+
+
+<!-- LEADERBOARD FOR SMALL SCREEN  -->
+
+
+
+
+      </div>
+
+
+
+
+  </section>
+
+
+
+  <script src="/js/dashboard.js"></script>
+  <script src="/js/leaderboard.js"></script>
+</body>
+
+</html>

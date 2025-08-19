@@ -1,0 +1,321 @@
+<!-- <p>Joined: <%= user.dateJoined.toDateString() %></p> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+
+<body>
+    <section class="moonchad">
+
+
+        <!-- Section 1 (NAV BAR) -->
+        <%- include('partials/nav') %>
+
+
+
+
+            <!-- Section 2 -->
+            <div class="dashboard-container">
+                <div class="reward-section">
+                    <div class="reward-text">500K tokens every week</div>
+                    <h1 class="reward-write-up">
+                        To be Eligible, <br> Reach top <strong>50</strong> on the LB.
+                    </h1>
+                </div>
+
+                <div class="metrics-container">
+                    <!-- MOONCHAD Wallet -->
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon"><i class="ri-wallet-3-fill"></i></div>
+                            <div class="arrow-icon"><i class="ri-arrow-right-s-line"></i></div>
+                        </div>
+                        <div class="metric-title">$MOONCHAD Token</div>
+                        <div class="metric-value">
+                            <%= user.tokenWallet %>
+                        </div>
+                        <div class="metric-change">
+                            <% if (user.usdWallet < 50) { %>
+                                <span class="change-negative">
+                                    <%= (user.tokenWallet).toFixed(0) %> tokens
+                                </span>
+                                <span class="change-text">Not claimable</span>
+                                <% } else { %>
+                                    <span class="change-positive">
+                                        <%= (user.tokenWallet).toFixed(0) %> tokens
+                                    </span>
+                                    <span class="change-text">Token is now claimable</span>
+                                    <% } %>
+                        </div>
+                    </div>
+
+                    <!-- Reward Wallet -->
+                    <div class="metric-card">
+                        <div class="metric-header">
+                            <div class="metric-icon"><i class="ri-gift-fill"></i></div>
+                            <div class="arrow-icon"><i class="ri-arrow-right-s-line"></i></div>
+                        </div>
+                        <div class="metric-title">Rewards & Points</div>
+                        <% let rewardProgress=Math.min((user.usdWallet / 50) * 100, 100).toFixed(0); %>
+                            <div class="metric-value">
+                                <%= rewardProgress %>% of $50
+                            </div>
+                            <div class="metric-change">
+                                <% if (user.usdWallet < 50) { %>
+                                    <span class="change-negative">
+                                        <%= rewardProgress %>%
+                                    </span>
+                                    <span class="change-text">Not enough points</span>
+                                    <% } else { %>
+                                        <span class="change-positive">
+                                            <%= rewardProgress %>%
+                                        </span>
+                                        <span class="change-text">Points in high value</span>
+                                        <% } %>
+                            </div>
+                    </div>
+
+                    <!-- USDT Value -->
+                    <div class="metric-card company">
+                        <div class="metric-header">
+                            <div class="metric-icon"><i class="ri-exchange-dollar-fill"></i></div>
+                            <div class="arrow-icon"><i class="ri-arrow-right-s-line"></i></div>
+                        </div>
+                        <div class="metric-title">USDT Value</div>
+                        <div class="metric-value">$<%= user.usdWallet.toFixed(2) %>
+                        </div>
+                        <div class="metric-change">
+                            <% if (user.usdWallet < 50) { %>
+                                <span class="change-negative">$<%= user.usdWallet.toFixed(2) %></span>
+                                <span class="change-text">Not claimable</span>
+                                <% } else { %>
+                                    <span class="change-positive">$<%= user.usdWallet.toFixed(2) %></span>
+                                    <span class="change-text">Claimable to wallet</span>
+                                    <% } %>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+            <!-- Section 3  -->
+            <section>
+                <div class="header-hold">
+
+                    <div class="header-tabs">
+                        <!-- <div class="tab active">All</div>
+                    <div class="tab">Engagement</div>
+                    <div class="tab">Visit</div>
+                    <div class="tab">Post</div> -->
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-btn"><i class="ri-filter-2-line"></i></button>
+                        <button class="action-btn"><i class="ri-calendar-schedule-line"></i></button>
+                        <!-- Take screenshot  -->
+                        <button class="action-btn download" id="downloadBtn">
+                            Screenshot Dashboard
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+                <!-- Leaderboard section -->
+                <div class="dashboard">
+                    <div class="card leaderboard-card">
+                        <% users.forEach((user, index)=> { %>
+
+                            <div class="leaderboard-row">
+
+                                <div class="leaderboard-left">
+                                    <span class="rank">
+                                        <%= (index + 1).toString().padStart(2, "0" ) %>
+                                    </span>
+                                    <img src="<%= user.profileImage.replace('_normal', '_400x400') %>" alt="Profile"
+                                        class="lb-avatar">
+                                    <div class="lb-user-info">
+                                        <p class="lb-handle">
+                                            <%= user.handle %>
+                                        </p>
+                                        <p class="lb-username">
+                                            <%= user.username %>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div class="leaderboard-right">
+                                    <p class="lb-usd">$<%= user.usdWallet.toFixed(2) %>
+                                    </p>
+                                    <p class="lb-token"><strong>
+                                            <%= user.tokenWallet %>
+                                        </strong> MCHAD</p>
+                                </div>
+                            </div>
+                            <% }) %>
+                    </div>
+
+
+
+
+
+                    <!-- Messages Panel -->
+                    <div class="goos">
+                        <div class="card legend-card">
+                            <div class="legend-header">
+                                <h3 id="legend-handle" style="font-size: 14px; font-weight: 600;">@<%= user.handle %>
+                                </h3>
+                                <button class="add-btn">
+                                    <span class="icon-plus"><i class="ri-vip-crown-2-line"></i></span>
+                                </button>
+                            </div>
+
+                            <!-- LEGEND AVATA -->
+                            <div class="legend-avata" id="legend-container">
+                                <!-- JS will inject user images here -->
+                            </div>
+                        </div>
+
+
+                        <div class="card boss">
+                            <h1>Biggest MCHAD Shiller</h1>
+                        </div>
+                    </div>
+<script>
+    const users = JSON.parse('<%- JSON.stringify(users) %>');
+
+    const container = document.getElementById('legend-container');
+    const handleEl = document.getElementById('legend-handle');
+
+    // Find user with the highest referrals
+    function getTopReferralUser() {
+        return users.reduce((top, user) => {
+            return (user.referrals || 0) > (top.referrals || 0) ? user : top;
+        }, users[0]);
+    }
+
+    function renderTopUser() {
+        container.innerHTML = ""; // clear old
+        const topUser = getTopReferralUser();
+
+        if (topUser) {
+            // set handle text
+            handleEl.textContent = '@' + topUser.handle;
+
+            // show avatar
+            const img = document.createElement("img");
+            img.src = topUser.profileImage.replace('_normal', '_400x400');
+            img.alt = topUser.handle;
+            container.appendChild(img);
+        }
+    }
+
+    // Render once (no shuffle needed anymore)
+    renderTopUser();
+</script>
+
+
+
+
+
+
+                    <!-- Tweet Submission Form -->
+                    <div class="card tweet-submit-card">
+                        <div class="tweet-submit-header">
+                            <div class="tweet-user">
+                                <p class="tweet-handle">@<%= user.handle %>
+                                </p>
+                                <p class="tweet-username">
+                                    <%= user.username %>
+                                </p>
+                            </div>
+                            <div class="tweet-actions">
+                                <button type="button" class="paste-btn">Paste link</button>
+                                <button type="button" class="reset-btn active">More info</button>
+                            </div>
+                        </div>
+
+                        <!-- Form where user submits tweet link -->
+                        <form class="tweet-submit-form" action="/tweets/submit" method="POST">
+                            <label for="tweet-link">Tweet Link</label>
+                            <input type="text" id="tweet-link" name="tweet-link"
+                                placeholder="Paste your tweet link here" required>
+                            <button type="submit" class="tweet-submit-btn">Submit Tweet</button>
+                        </form>
+
+                        <!-- How the form works -->
+                        <div class="tweet-explanation">
+                            <p>
+                                For your tweet to qualify for rewards, your tweet must mention
+                                <strong>@MoonChad</strong>.
+                                Including our ticker <strong>$MCHAD</strong> is optional but recommended for more
+                                visibility.
+                                Tweets must be submitted within <strong>24 hours of posting</strong>.
+                                Rewards are distributed based on <strong>engagements</strong>.
+                                so the more atraction your tweet gets, the higher your potential reward.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+
+
+
+    </section>
+
+
+
+    <!-- Take screenshot  -->
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <script>
+        document.getElementById("downloadBtn").addEventListener("click", () => {
+            html2canvas(document.body, { useCORS: true, scrollX: 0, scrollY: -window.scrollY })
+                .then(canvas => {
+                    let link = document.createElement("a");
+                    link.download = "dashboard.png";
+                    link.href = canvas.toDataURL("image/png");
+                    link.click();
+                });
+        });
+    </script>
+
+    <!-- Submite tweet toast  -->
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const msg = urlParams.get('msg');
+        const type = urlParams.get('type');
+
+        if (msg) {
+            Toastify({
+                text: msg,
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                backgroundColor: type === "success" ? "green" : "red",
+            }).showToast();
+
+            // Remove query params from URL after showing toast
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+    </script>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

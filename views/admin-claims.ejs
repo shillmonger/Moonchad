@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Claims</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <h2>Pending Claims</h2>
+
+  <table border="1" cellpadding="10">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Handle</th>
+        <th>Wallet</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if (claims.length === 0) { %>
+        <tr>
+          <td colspan="6">No claims found</td>
+        </tr>
+      <% } else { %>
+        <% claims.forEach(c => { %>
+          <tr>
+            <td><%= c.user?.username %></td>
+            <td>@<%= c.handle %></td>
+            <td><%= c.walletAddress %></td>
+            <td><%= c.amount.toLocaleString() %></td>
+            <td><%= c.status %></td>
+            <td><%= new Date(c.createdAt).toLocaleString() %></td>
+          </tr>
+        <% }) %>
+      <% } %>
+    </tbody>
+  </table>
+</body>
+</html>

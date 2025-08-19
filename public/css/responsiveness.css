@@ -1,0 +1,44 @@
+/* MY RESPONSIVNESS  */
+@media (max-width: 768px) {
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    height: 100vh; /* viewport height */
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+}
+
+.contain{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    text-align: start;
+    margin-bottom: 20px;
+}
+
+.points-count {
+    line-height: 25px;
+}
+
+.subtitle {
+    font-size: 15px;
+}
+
+.search-input {
+  border-radius: 5px;
+  width: 100%;
+}
+
+
+/* Leaderboard wrapper */
+/* LEADERBOARD FOR SMALL SCREEN  */
+
+}

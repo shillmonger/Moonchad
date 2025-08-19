@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary: #1d0c5a;
+    --color-secondary: #8465d1;
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-dark-gray: #1a1a1a;
+    --color-light-gray: #f5f5f5;
+    --color-border-gray: #cccccc;
+    --color-primary-hover: #2a1780;
+    --color-secondary-hover: #9b7df2;
+}
+
+
+
+/* Roadmap section */
+.roadmap {
+  color: #fff;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.roadmap-title {
+  font-size: 1.50rem;
+  margin-bottom: 10px;
+}
+
+.roadmap-subtitle {
+  max-width: 600px;
+  margin: 0 auto 40px;
+  color: #aaa;
+  font-size: 0.95rem;
+}
+
+/* Timeline container */
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: auto;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  background: var(--color-secondary); 
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-radius: 50px;
+  transform: translateX(-50%);
+}
+
+/* Timeline items */
+.timeline-item {
+  padding: 20px;
+  position: relative;
+  width: 50%;
+}
+
+.timeline-item .content {
+  background: var(--color-dark-gray);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: left;
+}
+
+.timeline-item.left {
+  left: 0;
+  text-align: right;
+}
+
+.timeline-item.right {
+  left: 50%;
+}
+
+.timeline-item h3 {
+  color: var(--color-secondary); /* highlight year */
+  margin: 0 0 5px;
+  font-size: 17px;
+}
+
+.timeline-item h4 {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  color: var(--color-white);
+}
+
+.timeline-item p{
+    color: #aaa;
+    font-size: 15px;
+}
+
+
+
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+.moonchad {
+        padding: 0rem;
+    }
+
+    .roadmap-title {
+    font-size: 1.50rem;
+    margin-bottom: 10px;
+}
+
+.roadmap-subtitle {
+    padding: 0 20px;
+    text-align: start;
+}
+
+.roadmap {
+    padding: 50px 0;
+}
+
+  .timeline::before {
+    left: 20px;
+  }
+  .timeline-item {
+    width: 100%;
+    padding-left: 40px;
+    padding-right: 20px;
+  }
+  .timeline-item.left,
+  .timeline-item.right {
+    left: 0;
+    text-align: left;
+  }
+}

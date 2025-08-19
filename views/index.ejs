@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>moonchad</title>
+    <link rel="icon" type="image/png" href="./images/favicon.png">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+
+    <!-- HEADER  -->
+        <%- include('partials/header') %>
+
+
+
+
+
+    <div class="moonchad">
+        <!-- Section 1 -->
+        <section class="crypto-section">
+            <!-- Floating Background Elements -->
+            <div class="floating-element floating-1"></div>
+            <div class="floating-element floating-2"></div>
+            <div class="curved-line line-1"></div>
+            <div class="curved-line line-2"></div>
+
+            <div class="main-container">
+                <!-- Left Content -->
+                <div class="content" data-aos="fade-right">
+                    <div class="badge">Your Crypto. Your Control!</div>
+
+                    <h1 class="main-heading big-text">
+                        The <span class="highlight">safest</span><br>
+                        way to <span class="highlight">earn & grow</span><br>
+                        your <span class="gray">crypto future</span>.
+                    </h1>
+
+                    <div class="user-stats">
+                        <div class="user-avatars">
+                            <% users.forEach(u=> { %>
+                                <div class="avatar" data-img="<%= u.profileImage.replace('_normal', '_400x400') %>">
+                                </div>
+                                <% }) %>
+                        </div>
+                        <!-- User dashboard  -->
+                        <script>
+                            document.querySelectorAll('.avatar').forEach(el => {
+                                const img = el.getAttribute('data-img');
+                                el.style.backgroundImage = `url(${img})`;
+                            });
+                        </script>
+
+
+
+
+                        <div class="stats-text">
+                            <div class="stats-number">1.3K+</div>
+                            <div class="stats-label">Realtime Users</div>
+                        </div>
+                    </div>
+
+
+                    <div class="description-box">
+                        <div class="icon-wrapper">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <div class="description-text">
+                            Join thousands of Moonchaders taking control of their financial future.
+                            Our platform combines cutting-edge security, low-risk strategies,
+                            and a transparent approach that puts you first.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Content - Phones -->
+                <div class="content-right" data-aos="fade-left">
+                    <img src="./images/moonchad-avata.png" alt="moonchad">
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- Section 2  -->
+        <section class="partner-section" id="how-we-work">
+            <div class="container">
+                <div class="content-wrapper">
+                    <!-- Left Content -->
+                    <div class="content-left" data-aos="fade-down">
+                        <h1 class="main-heading fade-in">
+                            How We <span class="gray">Work</span>
+                        </h1>
+                        <p class="description fade-in">
+                            At Moonchad, we believe trust is built through transparency and action.
+                            From concept to launch, every step is driven by clear communication,
+                            proven strategies, and a commitment to security.
+                        </p>
+
+                    </div>
+
+                    <!-- Right Content - Cards -->
+                    <div class="content-card">
+                        <div class="service-card card-01" data-aos="fade-right">
+                            <div class="card-number">01.</div>
+                            <div class="card-title">Built for Every Accounts</div>
+                            <div class="card-description">
+                                Whether you're just starting out or already a pro,
+                                we provide clear steps and tools to help you thrive in the Moonchad ecosystem.
+                            </div>
+                        </div>
+
+                        <div class="service-card card-02" data-aos="fade-up">
+                            <div class="card-number">02.</div>
+                            <div class="card-title">Built on Best Practices</div>
+                            <div class="card-description">
+                                We follow industry-proven methods, security protocols, and
+                                community-driven decision-making to ensure lasting impact and trust.
+                            </div>
+                            <a href="#" class="learn-more">Learn More <i class="ri-arrow-right-line"></i></a>
+                        </div>
+
+                        <div class="service-card card-03" data-aos="fade-left">
+                            <div class="card-number">03.</div>
+                            <div class="card-title">Driven by Community</div>
+                            <div class="card-description">
+                                Our community is the core of everything we do.
+                                We listen, adapt, and grow together, making Moonchad stronger every day.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <!-- Section 3 -->
+        <section class="trusted-section" id="our-mission">
+            <div class="trusted-container">
+                <!-- Left Image -->
+                <div class="trusted-left" data-aos="fade-up">
+                    <img src="./images/moonchad-astro.png" alt="moonchad avata">
+                </div>
+
+                <!-- Right Content -->
+                <div class="trusted-right" data-aos="fade-left">
+                    <h2>
+                        <h1 class="main-heading fade-in">
+                            Our <span class="highlight"></span> <span class="gray">Mission</span>
+                        </h1>
+                    </h2>
+
+                    <p>
+                        At Moonchad, we believe the future of Web3 belongs to everyone — not just a select few.
+                        Our mission is to build a transparent, community-driven ecosystem where trust, fairness, and
+                        shared success are at the core.
+                    </p>
+                    <p>
+                        We’re creating a platform where early believers, active community members, and partners all grow
+                        together.
+                        By giving the largest share of rewards back to our community, we ensure that those who help
+                        shape Moonchad’s journey
+                        are the same people who benefit the most from its success.
+                    </p>
+                    <p>
+                        Every decision we make — from reward distribution to future development — is guided by a
+                        commitment to openness,
+                        long-term growth, and the belief that together, we can reach the moon.
+                    </p>
+
+
+                    <div class="trusted-buttons">
+                        <a href="#" class="btn-learn">Learn More <i class="ri-arrow-right-line"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+        <!-- Slide -->
+        <section class="review section__container">
+            <div class="crypto-slide-container">
+
+                <div class="crypto-slide">
+                    <img src="./images/ai 1.png">
+                    <img src="./images/ai 6.png">
+                    <img src="./images/ai 3.png">
+                    <img src="./images/ai 5.png">
+                    <img src="./images/ai 2.png">
+                    <img src="./images/ai 4.png">
+
+                    <img src="./images/ai 1.png">
+                    <img src="./images/ai 6.png">
+                    <img src="./images/ai 3.png">
+                    <img src="./images/ai 4.png">
+                    <img src="./images/ai 5.png">
+                    <img src="./images/ai 2.png">
+                    <img src="./images/ai 4.png">
+                    <img src="./images/ai 1.png">
+                    <img src="./images/ai 3.png">
+                    <img src="./images/ai 6.png">
+                    <img src="./images/ai 2.png">
+
+                </div>
+            </div>
+        </section>
+
+
+
+
+
+
+        <!-- Section 4 -->
+        <section class="mission" id="reward-ratio">
+            <!-- Floating Background Elements -->
+            <div class="floating-elements">
+                <div class="floating-shape shape-1"></div>
+                <div class="floating-shape shape-2"></div>
+                <div class="floating-shape shape-3"></div>
+                <div class="floating-shape shape-4"></div>
+                <div class="floating-shape shape-5"></div>
+            </div>
+
+
+            <div class="container">
+                <!-- Header Section -->
+                <div class="mission-header" data-aos="fade-up">
+                    <h1 class="main-heading">
+                        Our <span class="gray">Reward</span> <span class="highlight">Ratio</span>
+                    </h1>
+
+
+                    <p class="mission-description">
+                        Moonchad is here to reward our strongest supporters, early believers, and loyal fans.
+                        Be part of the movement shaping the future of decentralized finance.
+                    </p>
+                </div>
+
+                <!-- Cards Grid -->
+                <div class="cards-grid">
+                    <!-- Card 1: Investors -->
+                    <div class="feature-card card-animate" data-aos="fade-right">
+                        <div class="card-icon">
+                            <!-- Investor Icon -->
+
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M6 8H18C19.1 8 20 8.9 20 10V19C20 20.1 19.1 21 18 21H6C4.9 21 4 20.1 4 19V10C4 8.9 4.9 8 6 8Z" />
+                                <path d="M8 8V6C8 4.9 8.9 4 10 4H14C15.1 4 16 4.9 16 6V8H14V6H10V8H8Z" />
+                                <path d="M7 16L10 13L13 15L17 11" />
+                                <path d="M15 11H17V13" />
+                                <circle cx="12" cy="14.5" r="2" fill="none" stroke="currentColor" stroke-width="0.5" />
+                                <path d="M12 13V16M11 13.5H13M11 15.5H13" stroke="currentColor" stroke-width="0.5" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Investors</h3>
+                        <p class="card-description">
+                            Early backers who fuel Moonchad's vision will share <strong>40%</strong> of the rewards a
+                            thank-you for believing in us before the moonshot.
+                        </p>
+                    </div>
+
+                    <!-- Card 2: Community (Featured) -->
+                    <div class="feature-card featured card-animate" data-aos="fade-up">
+                        <div class="card-icon">
+                            <!-- Community Icon -->
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 
+                         0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 
+                         1.17-7 3.5V20h6v-2H3.5C4.02 18.03 5.97 17 8 17s3.98 1.03 4.5 1H10v2h6v-3.5c0-2.33-4.67-3.5-7-3.5zm8 
+                         0c-.29 0-.62.02-.97.05 1.16.84 1.97 2.06 1.97 3.45V20h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Community Power</h3>
+                        <p class="card-description">
+                            The heart of Moonchad our community receives the largest share with <strong>60%</strong> of
+                            the airdrop.
+                            Engage, participate, and grow with us.
+                            Plus, <strong>40%</strong> of our gift pool goes back to active members.
+                        </p>
+                        <a href="/auth/twitter" class="learn-more-btn">Connect your X Account<i
+                                class="ri-arrow-right-line"></i></a>
+                    </div>
+
+                    <!-- Card 3: Gifts & Rewards -->
+                    <div class="feature-card card-animate" data-aos="fade-left">
+                        <div class="card-icon">
+                            <!-- Gift Icon -->
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 
+                         1.35C11.96 2.54 11.05 2 10 2 8.34 2 7 3.34 7 5c0 .35.07.69.18 
+                         1H4c-1.1 0-2 .9-2 2v2c0 .55.45 1 1 1h1v9c0 1.1.9 2 2 
+                         2h12c1.1 0 2-.9 2-2v-9h1c.55 0 1-.45 
+                         1-1V8c0-1.1-.9-2-2-2zM15 4c.55 0 1 
+                         .45 1 1s-.45 1-1 1h-2V5c0-.55.45-1 
+                         1-1zm-5 0c.55 0 1 .45 1 1v1H9c-.55 
+                         0-1-.45-1-1s.45-1 1-1zm8 16H6v-7h12v7zm2-9H4V8h16v3z" />
+                            </svg>
+                        </div>
+                        <h3 class="card-title">Gifts & Rewards</h3>
+                        <p class="card-description">
+                            Special events, contests, and loyalty bonuses make up <strong>40%</strong> of our gift pool
+                            rewarding creativity, dedication, and fun.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Floating icon  -->
+    <a href="#" class="discord-float" target="_blank" aria-label="Join us on Discord">
+        <i class="ri-discord-fill"></i>
+    </a>
+
+
+    <!-- Footer section  -->
+        <%- include('partials/footer') %>
+
+
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 500, // animation duration in ms
+            offset: 500,   // trigger offset
+            once: false    // animate every time you scroll past
+        });
+    </script>
+
+    <script src="/js/index.js"></script>
+</body>
+
+</html>
