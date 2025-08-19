@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="theme-color" content="#0d0d0d">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>profile</title>
     <link rel="icon" type="image/png" href="./images/favicon.png">
@@ -90,8 +91,7 @@
                                 </button>
 
                                 <!-- Hidden referral input -->
-                                <input type="text" value="http://localhost:3000/auth/signup?ref=<%= user.handle %>"
-                                    readonly id="ref-link" style="display:none">
+                                <input type="text" value="https://moonchad.onrender.com/auth/signup?ref=<%= user.handle %>" readonly id="ref-link" style="display:none">
                                 <button id="copy-ref-link" class="share-btn">Copy <i
                                         class="ri-file-copy-line"></i></button>
                             </div>
